@@ -259,8 +259,12 @@ def visualize_qual(demux_seqs, community_dir, summary_fn,
         print("Could not print demux summary: TypeError")
 
     # view fastq quality plots
-    qualplot = dada2.visualizers.plot_qualities(
-        n=n_qual_plots, demultiplexed_seqs=demux_seqs.per_sample_sequences)
+    # Fails: https://github.com/qiime2/q2-dada2/issues/59
+    #qualplot = dada2.visualizers.plot_qualities(
+    #    n=n_qual_plots, demultiplexed_seqs=demux_seqs.per_sample_sequences)
+    qualplot = demux.visualizers.summarize(n = n_qual_plots, data = demux_seqs.per_sample_sequences)
+    
+    
     qualplot.visualization.save(join(community_dir, qual_plot_fn))
 
 
